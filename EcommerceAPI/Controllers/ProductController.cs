@@ -32,8 +32,28 @@ namespace EcommerceAPI.Controllers
             return Ok(allProducts);
         }
 
-       
-        // criar o método UpdateProduct
+
+        [HttpPut]
+        public IActionResult UpdateProduct(int id, Product product)
+        {
+            var productToUpdate = _context.Products.Find(id);
+
+            if (productToUpdate == null)
+            {
+                return NotFound();
+            }
+
+            productToUpdate.Name = product.Name;
+            productToUpdate.Id = product.Id;
+            productToUpdate.Price = product.Price;
+            productToUpdate.Quantity = product.Quantity;
+            productToUpdate.Category = product.Category;
+
+            _context.Products.Update(productToUpdate);
+            _context.SaveChanges();
+
+            return Ok(productToUpdate);
+        }
 
         [HttpDelete]
         public IActionResult DeleteProduct(Product product)
