@@ -9,6 +9,7 @@ namespace EcommerceAPI.DatabaseContext
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Sale> Sales { get; set; }
 
         public EcommerceContext(DbContextOptions<EcommerceContext> options) : base(options) { }
     }

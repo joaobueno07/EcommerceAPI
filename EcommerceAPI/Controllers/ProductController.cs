@@ -33,7 +33,7 @@ namespace EcommerceAPI.Controllers
         }
 
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public IActionResult UpdateProduct(int id, Product product)
         {
             var productToUpdate = _context.Products.Find(id);

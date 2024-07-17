@@ -31,7 +31,7 @@ namespace EcommerceAPI.Controllers
             return Ok(user);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public IActionResult UpdateUsers(int id, User user)
         {
             var userToUpdate = _context.Users.Find(id);

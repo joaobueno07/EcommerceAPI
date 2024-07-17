@@ -1,6 +1,4 @@
-﻿
-
-namespace EcommerceAPI.Model
+﻿namespace EcommerceAPI.Model
 {
     public class Sale
     {
@@ -8,5 +6,6 @@ namespace EcommerceAPI.Model
         public string SaleId { get; set; }
         public int Quantity { get; set; }
         public ICollection<Product> Products { get; set; }
+        public double TotalValue { get; set; }
     }
 }
