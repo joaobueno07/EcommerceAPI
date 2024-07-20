@@ -2,10 +2,12 @@
 {
     public class Sale
     {
-        public User UserClient { get; set; }
         public string SaleId { get; set; }
-        public int Quantity { get; set; }
-        public ICollection<Product> Products { get; set; }
-        public double TotalValue { get; set; }
+        public int UserId { get; set; }
+        public int ProductId { get; set; }
+        public double TotalPrice { get; set; }
+
+        public User User { get; set; }
+        public Product Product { get; set; }
     }
 }

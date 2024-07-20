@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EcommerceAPI.Migrations
 {
     [DbContext(typeof(EcommerceContext))]
-    [Migration("20240717004230_atualizandoTabelas")]
-    partial class atualizandoTabelas
+    [Migration("20240720210951_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,16 +27,21 @@ namespace EcommerceAPI.Migrations
 
             modelBuilder.Entity("EcommerceAPI.Model.Product", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(255)");
+                    b.Property<int>("ProductId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("ProductId"));
 
                     b.Property<string>("Category")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
 
                     b.Property<double>("Price")
                         .HasColumnType("double");
@@ -44,12 +49,7 @@ namespace EcommerceAPI.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<string>("SaleId")
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SaleId");
+                    b.HasKey("ProductId");
 
                     b.ToTable("Products");
                 });
@@ -59,71 +59,87 @@ namespace EcommerceAPI.Migrations
                     b.Property<string>("SaleId")
                         .HasColumnType("varchar(255)");
 
-                    b.Property<int>("Quantity")
+                    b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<double>("TotalValue")
+                    b.Property<double>("TotalPrice")
                         .HasColumnType("double");
 
-                    b.Property<int>("UserClientId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("SaleId");
 
-                    b.HasIndex("UserClientId");
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Sales");
                 });
 
             modelBuilder.Entity("EcommerceAPI.Model.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("UserId"));
 
                     b.Property<DateTime>("BirthDay")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Identity")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserId");
 
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("EcommerceAPI.Model.Product", b =>
-                {
-                    b.HasOne("EcommerceAPI.Model.Sale", null)
-                        .WithMany("Products")
-                        .HasForeignKey("SaleId");
-                });
-
             modelBuilder.Entity("EcommerceAPI.Model.Sale", b =>
                 {
-                    b.HasOne("EcommerceAPI.Model.User", "UserClient")
-                        .WithMany()
-                        .HasForeignKey("UserClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne("EcommerceAPI.Model.Product", "Product")
+                        .WithMany("Sales")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("UserClient");
+                    b.HasOne("EcommerceAPI.Model.User", "User")
+                        .WithMany("UserSales")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
                 });
 
-            modelBuilder.Entity("EcommerceAPI.Model.Sale", b =>
+            modelBuilder.Entity("EcommerceAPI.Model.Product", b =>
                 {
-                    b.Navigation("Products");
+                    b.Navigation("Sales");
+                });
+
+            modelBuilder.Entity("EcommerceAPI.Model.User", b =>
+                {
+                    b.Navigation("UserSales");
                 });
 #pragma warning restore 612, 618
         }

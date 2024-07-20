@@ -44,7 +44,7 @@ namespace EcommerceAPI.Controllers
             }
 
             productToUpdate.Name = product.Name;
-            productToUpdate.Id = product.Id;
+            productToUpdate.ProductId = product.ProductId;
             productToUpdate.Price = product.Price;
             productToUpdate.Quantity = product.Quantity;
             productToUpdate.Category = product.Category;

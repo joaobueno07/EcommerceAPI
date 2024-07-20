@@ -43,7 +43,7 @@ namespace EcommerceAPI.Controllers
 
             userToUpdate.Name = user.Name;
             userToUpdate.Email = user.Email;
-            userToUpdate.Id = user.Id;
+            userToUpdate.UserId = user.UserId;
             userToUpdate.Password = user.Password;
             userToUpdate.BirthDay = user.BirthDay;
 
