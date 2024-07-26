@@ -1,6 +1,16 @@
 [
   {
     "ContainingType": "EcommerceAPI.Controllers.ProductController",
+    "Method": "GetProducts",
+    "RelativePath": "Product",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EcommerceAPI.Controllers.ProductController",
     "Method": "CreateProduct",
     "RelativePath": "Product",
     "HttpMethod": "POST",
@@ -13,16 +23,6 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "EcommerceAPI.Controllers.ProductController",
-    "Method": "GetProducts",
-    "RelativePath": "Product",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
     "ReturnTypes": []
   },
   {
@@ -57,6 +57,32 @@
       {
         "Name": "product",
         "Type": "EcommerceAPI.Model.Product",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EcommerceAPI.Controllers.SaleController",
+    "Method": "GetSales",
+    "RelativePath": "Sale",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EcommerceAPI.Controllers.SaleController",
+    "Method": "CreateSale",
+    "RelativePath": "Sale",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "sale",
+        "Type": "EcommerceAPI.Model.Sale",
         "IsRequired": true
       }
     ],

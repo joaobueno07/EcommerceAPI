@@ -9,7 +9,6 @@ namespace EcommerceAPI.Model
         public double Price { get; set; }
         public string Category { get; set; }
         public int Quantity { get; set; }
-
         public ICollection<Sale> Sales { get; set; }
     }
 }

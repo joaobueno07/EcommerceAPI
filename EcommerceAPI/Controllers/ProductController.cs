@@ -15,6 +15,12 @@ namespace EcommerceAPI.Controllers
             _context = context;
         }
 
+        [HttpGet]
+        public IActionResult GetProducts()
+        {
+            var allProducts = _context.Products.ToList();
+            return Ok(allProducts);
+        }
         
         [HttpPost]
         public IActionResult CreateProduct(Product product)
@@ -24,14 +30,6 @@ namespace EcommerceAPI.Controllers
 
             return Ok(product);
         }
-
-        [HttpGet]
-        public IActionResult GetProducts()
-        {
-            var allProducts = _context.Products.ToList();
-            return Ok(allProducts);
-        }
-
 
         [HttpPut("{id}")]
         public IActionResult UpdateProduct(int id, Product product)
