@@ -2,6 +2,8 @@
 using EcommerceAPI.DatabaseContext;
 using Microsoft.AspNetCore.Mvc;
 
+// public ICollection<Product> Products { get; set; } => tabela Sale
+
 namespace EcommerceAPI.Controllers
 {
 
@@ -16,11 +18,9 @@ namespace EcommerceAPI.Controllers
             _context = context;
         }
 
-
         [HttpGet]
         public IActionResult GetSales()
         {
-            
             var allSales = _context.Sales.ToList();
 
             if (allSales.Any())
@@ -33,15 +33,33 @@ namespace EcommerceAPI.Controllers
             }
         }
 
-        [HttpPost]
-        public IActionResult CreateSale(Sale sale)
-        {
-            var products = _context.Products;
-            var users = _context.Users;
 
-           
+        [HttpPost]
+        public IActionResult CreateSales(int productId, int userId)
+        {
+            var product = _context.Products.Find(productId);
+            var user = _context.Users.Find(userId);
+            
+            Sale sale = new Sale();
+
+            if (product == null || user == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                sale.UserId = user.Id;
+                sale.ProductId = product.Id;
+
+                _context.Sales.Add(sale);
+                _context.SaveChanges();
+            }
 
             return Ok(sale);
         }
+
+
+
+      
     }
 }

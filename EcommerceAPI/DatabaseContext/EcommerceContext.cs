@@ -19,8 +19,13 @@ namespace EcommerceAPI.DatabaseContext
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.ApplyConfiguration(new ConfigureSale());
-            modelBuilder.ApplyConfiguration(new ConfigureProduct());
+            ConfigureSale sale = new ConfigureSale();
+            ConfigureProduct product = new ConfigureProduct();
+            ConfigureUser user = new ConfigureUser();
+
+            modelBuilder.ApplyConfiguration(sale);
+            modelBuilder.ApplyConfiguration(product);
+            modelBuilder.ApplyConfiguration(user);
         }
     }
 }

@@ -25,8 +25,11 @@ namespace EcommerceAPI.Controllers
         [HttpPost]
         public IActionResult CreateProduct(Product product)
         {
-            _context.Products.Add(product);
-            _context.SaveChanges();
+            if (product.Name != null && product.Price != null)
+            {
+                _context.Products.Add(product);
+                _context.SaveChanges();
+            }
 
             return Ok(product);
         }
@@ -42,24 +45,31 @@ namespace EcommerceAPI.Controllers
             }
 
             productToUpdate.Name = product.Name;
-            productToUpdate.ProductId = product.ProductId;
+            productToUpdate.Id = product.Id;
             productToUpdate.Price = product.Price;
             productToUpdate.Quantity = product.Quantity;
             productToUpdate.Category = product.Category;
 
             _context.Products.Update(productToUpdate);
-            _context.SaveChanges();
+            _context.SaveChanges(); // tratar erro
 
             return Ok(productToUpdate);
         }
 
-        [HttpDelete]
-        public IActionResult DeleteProduct(Product product)
+        [HttpDelete("{id}")]
+        public IActionResult DeleteProduct(int id)
         {
-            _context.Products.Remove(product);
+            var productId = _context.Products.Find(id);
+
+            if (productId == null)
+            {
+                return NotFound();
+            }
+
+            _context.Products.Remove(productId);
             _context.SaveChanges();
 
-            return Ok(product);
+            return Ok(productId);
         }
     }
 }

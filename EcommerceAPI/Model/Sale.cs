@@ -2,11 +2,8 @@
 {
     public class Sale
     {
-        public string SaleId { get; set; }
-        public User UserClient { get; set; }
+        public int Id { get; set; }
         public int UserId { get; set; }
-        public double TotalPrice { get; set; }
-        public DateTime PurchaseTime { get; set; }
-        public ICollection<Product> Products { get; set; }
+        public int ProductId { get; set; }
     }
 }

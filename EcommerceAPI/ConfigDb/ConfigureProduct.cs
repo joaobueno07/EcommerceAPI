@@ -8,10 +8,12 @@ namespace EcommerceAPI.ConfigDb
     {
         public void Configure(EntityTypeBuilder<Product> entityProduct)
         {
-            entityProduct.HasKey(p => p.ProductId);
+            entityProduct.HasKey(p => p.Id);
+            entityProduct.Property(p => p.Id).ValueGeneratedOnAdd();
 
-            entityProduct.HasMany(s => s.Sales)
-                .WithMany(p => p.Products);
+            entityProduct.Property(p => p.Name).IsRequired();
+            entityProduct.Property(p => p.Price).IsRequired();
+            
         }
     }
 }

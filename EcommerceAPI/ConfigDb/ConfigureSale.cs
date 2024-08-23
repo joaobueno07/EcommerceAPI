@@ -8,11 +8,8 @@ namespace EcommerceAPI.ConfigDb
     {
         public void Configure(EntityTypeBuilder<Sale> entitySale)
         {
-            entitySale.HasKey(s => s.SaleId);
-
-            entitySale.HasOne(u => u.UserClient)
-                .WithMany(u => u.UserSales)
-                .HasForeignKey(fk => fk.UserId);
+            entitySale.HasKey(s => s.Id);
+            entitySale.Property(s => s.Id).ValueGeneratedOnAdd();
         }
     }
 }

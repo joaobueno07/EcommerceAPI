@@ -43,14 +43,29 @@ namespace EcommerceAPI.Controllers
 
             userToUpdate.Name = user.Name;
             userToUpdate.Email = user.Email;
-            userToUpdate.UserId = user.UserId;
-            userToUpdate.Password = user.Password;
+            userToUpdate.Id = user.Id;
             userToUpdate.BirthDay = user.BirthDay;
 
             _context.Users.Update(userToUpdate);
             _context.SaveChanges();
 
             return Ok(userToUpdate);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteUser(int id)
+        {
+            var userToDelete = _context.Users.Find(id);
+
+            if (userToDelete == null)
+            {
+                return NotFound();
+            }
+
+            _context.Users.Remove(userToDelete);
+            _context.SaveChanges();
+
+            return Ok();
         }
     }
 }
